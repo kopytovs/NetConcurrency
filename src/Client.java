@@ -2,27 +2,52 @@
  * Created by Kopytov on 15.02.17.
  */
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+
 
 
 public class Client {
 
     public static void main (String[] args){
 
+        int serverPort = 7777;
+        String adress = "127.0.0.1";
+
         try{
 
-            Socket socket = new Socket("localhost", 40001);
+            InetAddress ipAdress = InetAddress.getByName(adress);
+            Socket socket = new Socket(ipAdress, serverPort);
+
             OutputStream outputStream = socket.getOutputStream();
+            InputStream inputStream = socket.getInputStream();
+
             DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
-            dataOutputStream.writeUTF("Привет, я клиент!");
+            DataInputStream dataInputStream = new DataInputStream(inputStream);
+
+            BufferedReader keyboard = new BufferedReader(new InputStreamReader(System.in));
+
+            String msg = null;
+
+            System.out.println("Введите ваше сообщение:");
+
+            Boolean isOn = true;
+
+            while (isOn) {
+
+                msg = keyboard.readLine();
+                dataOutputStream.writeUTF(msg);
+                dataOutputStream.flush();
+
+                msg = dataInputStream.readUTF();
+                System.out.println("Сервер: " + msg);
+
+            }
 
         }
         catch (IOException e) {
 
-            System.out.println("Error: " + e);
+            e.printStackTrace();
 
         }
 
