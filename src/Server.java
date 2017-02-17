@@ -13,6 +13,8 @@ public class Server {
 
         try {
 
+            port = Integer.parseInt(args[0]);
+
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("Ожидаю клиента");
             Socket socket = serverSocket.accept();

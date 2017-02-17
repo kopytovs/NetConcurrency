@@ -16,6 +16,9 @@ public class Client {
 
         try{
 
+            serverPort = Integer.parseInt(args[0]);
+            adress = args[1];
+
             InetAddress ipAdress = InetAddress.getByName(adress);
             Socket socket = new Socket(ipAdress, serverPort);
 
