@@ -13,13 +13,28 @@ public class Server {
 
         try {
 
+            /*Thread thread1 = new Thread (new ThreadRest(1));
+            Thread thread2 = new Thread (new ThreadRest(2));
+            Thread thread3 = new Thread (new ThreadRest(3));
+            Thread thread4 = new Thread (new ThreadRest(4));
+            Thread thread5 = new Thread (new ThreadRest(5));
+            Thread thread6 = new Thread (new ThreadRest(6));*/
+
             port = Integer.parseInt(args[0]);
 
             ServerSocket serverSocket = new ServerSocket(port);
             System.out.println("Ожидаю клиента");
-            Socket socket = serverSocket.accept();
 
-            InputStream inputStream = socket.getInputStream();
+            int i = 1;
+
+            while (true) {
+                Socket socket = serverSocket.accept();
+                Thread thread = new Thread(new Session(socket, i));
+                thread.start();
+                i++;
+            }
+
+            /*InputStream inputStream = socket.getInputStream();
             OutputStream outputStream = socket.getOutputStream();
 
             DataInputStream dataInputStream = new DataInputStream(inputStream);
@@ -31,6 +46,8 @@ public class Server {
 
             Boolean isWorked = true;
 
+            System.out.println("Клиент подконектился");
+
             while (isWorked){
                 msg = dataInputStream.readUTF();
                 System.out.println("Клиент: " + msg);
@@ -40,7 +57,7 @@ public class Server {
                 dataOutputStream.flush();
 
 
-            }
+            }*/
 
         }
         catch (IOException e) {
