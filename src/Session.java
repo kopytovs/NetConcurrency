@@ -30,7 +30,7 @@ public class Session implements Runnable {
 
             while (isWorked) {
                 msg = dataInputStream.readUTF();
-                System.out.println("Клиент" + this.numberOfClient + ": " + msg);
+                System.out.println("Клиент" + this.numberOfClient++ + ": " + msg);
 
                 msg = keyboard.readLine();
                 dataOutputStream.writeUTF(msg);
@@ -39,7 +39,7 @@ public class Session implements Runnable {
 
             }
         } catch (IOException e) {e.printStackTrace();}
-        System.out.println("Клиент ушел");
+        System.out.println("Клиент" + numberOfClient + " вышел");
         numberOfClient--;
 
     };
