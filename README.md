@@ -1,4 +1,4 @@
 # NetConcurrency
-Client-Server app
+app.Client-app.Server app
 
-Homework || App on Java, contains Server and Client, which can sending messages to each other.
+Homework || App on Java, contains app.Server and app.Client, which can sending messages to each other.
